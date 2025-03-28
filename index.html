@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-section {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+
+        .analytics-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-wrapper {
+            width: 48%;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-wrapper {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">LIMITED TIME OFFERS</h1>
+            <div class="poster-grid">
+                <div class="poster-item" data-category="summer-sale">
+                    <img src="http://localhost/cllg-work/uploads/acc.jpg" alt="Summer Sale">
+                    <div class="poster-content">
+                        <h3>Summer Collection Sale</h3>
+                        <p>Up to 50% off on selected summer styles. Limited time offer!</p>
+                        <a href="website.html" class="shop-btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="poster-item" data-category="new-arrivals">
+                    <img src="http://localhost/cllg-work/uploads/neww.jpg" alt="New Arrivals">
+                    <div class="poster-content">
+                        <h3>New Season Arrivals</h3>
+                        <p>Be the first to shop our latest styles. Fresh drops weekly!</p>
+                        <a href="website.html" class="shop-btn">Explore</a>
+                    </div>
+                </div>
+                <div class="poster-item" data-category="clearance">
+                    <img src="http://localhost/cllg-work/uploads/sale.jpg" alt="Clearance">
+                    <div class="poster-content">
+                        <h3>Season End Clearance</h3>
+                        <p>Extra 30% off on already reduced items. While stocks last!</p>
+                        <a href="website.html" class="shop-btn">Shop Sale</a>
+                    </div>
+                </div>
+                <div class="poster-item" data-category="accessories-special">
+                    <img src="http://localhost/cllg-work/uploads/acc.png" alt="Accessories Special">
+                    <div class="poster-content">
+                        <h3>Accessories Special</h3>
+                        <p>Buy any 2 accessories and get 1 free. This weekend only!</p>
+                        <a href="website.html" class="shop-btn">Shop Accessories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section">
+        <div class="container">
+            <h2 class="section-title">Shop By Category</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon">👕</div>
+                    <h3 class="category-name">Topwear</h3>
+                    <p class="category-description">T-shirts, shirts, tops, and more</p>
+                    <a href="topwear.html" class="shop-btn">Shop Topwear</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👖</div>
+                    <h3 class="category-name">Bottomwear</h3>
+                    <p class="category-description">Jeans, trousers, shorts, and skirts</p>
+                    <a href="bottomwear.html" class="shop-btn">Shop Bottomwear</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👗</div>
+                    <h3 class="category-name">Dresses</h3>
+                    <p class="category-description">Casual, formal, and party dresses</p>
+                    <a href="dresses.html" class="shop-btn">Shop Dresses</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👜</div>
+                    <h3 class="category-name">Accessories</h3>
+                    <p class="category-description">Bags, jewelry, belts, and more</p>
+                    <a href="acc.html" class="shop-btn">Shop Accessories</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="analytics-section">
+        <div class="container">
+            <h2 class="section-title">Store Analytics</h2>
+            <div class="analytics-container">
+                <div class="chart-wrapper">
+                    <canvas id="salesChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="conversionChart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="overlay" id="categoryOverlay">
+        <div class="modal">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">Choose a Category</h2>
+            <p class="modal-text">Select a category to explore our products:</p>
+            <div class="categories">
+                <a href="topwear.html" class="category-link" data-category="topwear">Topwear</a>
+                <a href="bottomwear.html" class="category-link" data-category="bottomwear">Bottomwear</a>
+                <a href="dresses.html" class="category-link" data-category="dresses">Dresses</a>
+                <a href="acc.html" class="category-link" data-category="accessories">Accessories</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Element Selectors
+        const DOM = {
+            searchIcon: document.querySelector('.search-icon'),
+            searchPopup: document.getElementById('searchPopup'),
+            searchPopupClose: document.querySelector('.search-popup-close'),
+            popupSearchForm: document.getElementById('popupSearchForm'),
+            menuBtn: document.querySelector('.menu-btn'),
+            navMenu: document.querySelector('.nav-menu'),
+            navLinks: document.querySelectorAll('.nav-link'),
+            posterItems: document.querySelectorAll('.poster-item'),
+            categoryOverlay: document.getElementById('categoryOverlay'),
+            modalCloseBtn: document.querySelector('.modal-close'),
+            shopButtons: document.querySelectorAll('.poster-content .shop-btn')
+        };
+
+        // Search Popup Functionality
+        function initSearchPopup() {
+            DOM.searchIcon.addEventListener('click', (e) => {
+                e.preventDefault();
+                DOM.searchPopup.classList.add('active');
+            });
+
+            DOM.searchPopupClose.addEventListener('click', () => {
+                DOM.searchPopup.classList.remove('active');
+            });
+
+            // Close popup when clicking outside the search content
+            DOM.searchPopup.addEventListener('click', (e) => {
+                if (e.target === DOM.searchPopup) {
+                    DOM.searchPopup.classList.remove('active');
+                }
+            });
+
+            // Prevent form submission from closing the popup if the input is empty
+            DOM.popupSearchForm.addEventListener('submit', (e) => {
+                const popupSearchInput = document.getElementById('popupSearchInput');
+                if (popupSearchInput.value.trim() === '') {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // Mobile Menu Toggle Functionality
+        function initMobileMenu() {
+            DOM.menuBtn.addEventListener('click', () => {
+                DOM.menuBtn.classList.toggle('active');
+                DOM.navMenu.classList.toggle('active');
+            });
+
+            // Close menu when a nav link is clicked
+            DOM.navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    DOM.menuBtn.classList.remove('active');
+                    DOM.navMenu.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideNavMenu = DOM.navMenu.contains(event.target);
+                const isClickOnMenuBtn = DOM.menuBtn.contains(event.target);
+
+                if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                    DOM.menuBtn.classList.remove('active');
+                    DOM.navMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Poster and Category Overlay Functionality
+        function initPosterAndCategoryOverlay() {
+            let currentPoster = null;
+
+            DOM.posterItems.forEach(poster => {
+                poster.addEventListener('click', () => {
+                    currentPoster = poster.getAttribute('data-category');
+                    DOM.categoryOverlay.classList.add('active');
+                });
+            });
+
+            DOM.modalCloseBtn.addEventListener('click', () => {
+                DOM.categoryOverlay.classList.remove('active');
+            });
+
+            DOM.categoryOverlay.addEventListener('click', (e) => {
+                if (e.target === DOM.categoryOverlay) {
+                    DOM.categoryOverlay.classList.remove('active');
+                }
+            });
+
+            // Shop buttons in the posters
+            DOM.shopButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent the poster click event from firing
+                    const poster = button.closest('.poster-item');
+                    const category = poster.getAttribute('data-category');
+                    window.location.href = "website.html";
+                });
+            });
+        }
+
+        // Chart Initialization Functions
+        function initCharts() {
+            // Sales by Month Chart
+            new Chart(document.getElementById('salesChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Monthly Sales ($)',
+                        data: [12000, 19000, 15000, 22000, 18000, 25000],
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Sales Performance'
+                        }
+                    }
+                }
+            });
+
+            // Product Category Distribution Chart
+            new Chart(document.getElementById('categoryChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Topwear', 'Bottomwear', 'Dresses', 'Accessories'],
+                    datasets: [{
+                        data: [35, 25, 20, 20],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sales by Product Category'
+                        }
+                    }
+                }
+            });
+
+            // Conversion Rate Chart
+            new Chart(document.getElementById('conversionChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Conversion Rate (%)',
+                        data: [2.5, 3.2, 2.8, 3.5, 3.0, 3.7],
+                        backgroundColor: 'rgb(255, 99, 132)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Website Conversion Rate'
+                        }
+                    }
+                }
+            });
+
+            // Revenue by Product Category Chart
+            new Chart(document.getElementById('revenueChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Topwear', 'Bottomwear', 'Dresses', 'Accessories'],
+                    datasets: [{
+                        data: [40000, 30000, 20000, 15000],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Revenue Distribution'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize all functionalities when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initSearchPopup();
+            initMobileMenu();
+            initPosterAndCategoryOverlay();
+            initCharts();
+        });
+    </script>
+</body>
+
+</html>

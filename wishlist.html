@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Wishlist</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <script src="wish.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #e94560;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .wishlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .wishlist-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .cart-count1 {
+            font-size: 20px;
+            background: #000;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            margin-top: 100px;
+        }
+
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .wishlist-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .wishlist-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .remove-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--white);
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .remove-button:hover {
+            background-color: #ff4444;
+            color: var(--white);
+        }
+
+        .wishlist-info {
+            padding: 1.5rem;
+        }
+
+        .wishlist-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .wishlist-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .move-to-cart {
+            width: 100%;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .move-to-cart:hover {
+            background-color: #333;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 4rem;
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-wishlist i {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist p {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .shop-now-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .shop-now-button:hover {
+            background-color: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .wishlist-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <!-- <span class="icon-badge wishlist-count">0</span> -->
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <div class="wishlist-header">
+            <h1 class="wishlist-title"><span class="cart-count1" id="wishlistItemCount">0 ITEM</span></h1>
+            <!-- <span class="wishlist-count">0 items</span> -->
+        </div>
+
+        <div class="wishlist-grid" id="wishlistGrid">
+            <!-- Empty wishlist message -->
+            <div class="empty-wishlist">
+                <i class="far fa-heart"></i>
+                <h2>Your wishlist is empty</h2>
+                <p>Add items that you like to your wishlist</p>
+                <a href="website.html" class="shop-now-button">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const wishlistGrid = document.getElementById('wishlistGrid');
+        const wishlistCount = document.querySelector('.wishlist-count');
+
+        function updateWishlistCount() {
+            wishlistCount.textContent = `${wishlistManager.getWishlistItems().length} items`;
+        }
+
+        function updateWishlistItemCount() {
+            const count = wishlistManager.getWishlistItems().length;
+            const countElement = document.getElementById('wishlistItemCount');
+            countElement.textContent = `${count} ${count === 1 ? 'ITEM' : 'ITEMS'}`;
+        }
+
+        function createWishlistCard(item) {
+            return `
+                <div class="wishlist-card" data-id="${item.id}">
+                    <img src="${item.image_url}" alt="${item.name}" class="wishlist-image">
+                    <button class="remove-button" onclick="removeFromWishlist(${item.id})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="wishlist-info">
+                        <h3 class="wishlist-name">${item.name}</h3>
+                        <p class="wishlist-price">₹${item.price.toLocaleString()}</p>
+                        <button class="move-to-cart" onclick="moveToCart(${item.id})">Move to Cart</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderWishlist() {
+            const items = wishlistManager.getWishlistItems();
+            if (items.length === 0) {
+                wishlistGrid.innerHTML = `
+                    <div class="empty-wishlist">
+                        <i class="far fa-heart"></i>
+                        <h2>Your wishlist is empty</h2>
+                        <p>Add items that you like to your wishlist</p>
+                        <a href="index.html" class="shop-now-button">Continue Shopping</a>
+                    </div>
+                `;
+            } else {
+                wishlistGrid.innerHTML = items.map(createWishlistCard).join('');
+            }
+            updateWishlistItemCount();
+        }
+
+        function removeFromWishlist(productId) {
+            wishlistManager.removeFromWishlist(productId);
+            renderWishlist();
+        }
+
+        function moveToCart(productId) {
+            const item = wishlistManager.getWishlistItems().find(item => item.id === productId);
+            if (item) {
+                // Add to cart
+                let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                cartItems.push({
+                    id: item.id,
+                    name: item.name,
+                    price: parseFloat(item.price),
+                    image: item.image_url,
+                    quantity: 1
+                });
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+                // Remove from wishlist
+                removeFromWishlist(productId);
+
+                // Update cart count
+                updateCartCount();
+
+                alert("Item moved to cart!");
+            }
+        }
+
+        function updateCartCount() {
+            let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            const cartCountElement = document.querySelector(".cart-count");
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderWishlist();
+            updateWishlistItemCount();
+            updateCartCount();
+
+            // Add click event to wishlist cards
+            wishlistGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.wishlist-card');
+                if (card && !e.target.closest('.remove-button') && !e.target.closest('.move-to-cart')) {
+                    const productId = card.dataset.id;
+                    window.location.href = `product-details.html?id=${productId}`;
+                }
+            });
+        });
+
+        // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

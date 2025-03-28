@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Products</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="mycss.css">
+    <script src="wish.js"></script>
+    Certainly! I'll improve the styling, adjust the product size, and fix the cart count issue. Here's the updated
+    product-details.html file with these improvements:
+    product-details.html
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>MyShop - Product Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="mycss.css">
+        <script src="wish.js"></script>
+        <style>
+            :root {
+                --primary-color: #1a1a1a;
+                --secondary-color: #e94560;
+                --text-color: #333;
+                --light-gray: #f5f5f5;
+                --white: #ffffff;
+            }
+
+            body {
+                background-color: #f0f2f5;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .products-container {
+                max-width: 1000px;
+                margin: 2rem auto;
+                padding: 2rem;
+                background: var(--white);
+                border-radius: 1rem;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .products-details {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .products-image-container {
+                flex: 0 0 40%;
+            }
+
+            .products-image {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                border-radius: 0.5rem;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+            }
+
+            .products-image:hover {
+                transform: scale(1.05);
+            }
+
+            .products-info {
+                flex: 1;
+            }
+
+            .products-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+                color: var(--primary-color);
+            }
+
+            .products-price {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--secondary-color);
+                margin-bottom: 1rem;
+            }
+
+            .products-description {
+                color: var(--text-color);
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .size-selector,
+            .quantity-selector {
+                margin-bottom: 1.5rem;
+            }
+
+            .size-selector h3,
+            .quantity-selector h3 {
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .size-options {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .size-option {
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--light-gray);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+
+            .size-option:hover,
+            .size-option.active {
+                border-color: var(--secondary-color);
+                background: var(--secondary-color);
+                color: var(--white);
+            }
+
+            .quantity-input {
+                width: 80px;
+                padding: 0.5rem;
+                border: 1px solid var(--light-gray);
+                border-radius: 0.3rem;
+                text-align: center;
+                font-size: 0.9rem;
+            }
+
+            .action-buttons {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .add-to-cart,
+            .buy-now {
+                flex: 1;
+                padding: 0.8rem;
+                border: none;
+                border-radius: 0.3rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+
+            .add-to-cart {
+                background: var(--primary-color);
+                color: var(--white);
+            }
+
+            .buy-now {
+                background: var(--secondary-color);
+                color: var(--white);
+            }
+
+            .add-to-cart:hover,
+            .buy-now:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+            }
+
+            .products-features {
+                background: var(--light-gray);
+                padding: 1rem;
+                border-radius: 0.3rem;
+            }
+
+            .products-features h3 {
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .feature-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            .feature-list li {
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .feature-list i {
+                color: var(--secondary-color);
+                font-size: 1rem;
+            }
+
+            @media (max-width: 768px) {
+                .products-details {
+                    flex-direction: column;
+                }
+
+                .products-image-container {
+                    max-width: 100%;
+                }
+            }
+        </style>
+    </head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <main class="products-container">
+        <div class="products-details">
+            <div class="products-image-container">
+                <img id="productImage" src="" alt="Product Image" class="products-image">
+            </div>
+            <div class="products-info">
+                <h1 id="productName" class="products-title"></h1>
+                <p id="productPrice" class="products-price"></p>
+                <p id="productDescription" class="products-description"></p>
+
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options">
+                        <div class="size-option">S</div>
+                        <div class="size-option">M</div>
+                        <div class="size-option">L</div>
+                        <div class="size-option">XL</div>
+                    </div>
+                </div>
+
+                <div class="quantity-selector">
+                    <h3>Quantity</h3>
+                    <input type="number" class="quantity-input" value="1" min="1">
+                </div>
+
+                <div class="action-buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy-now">Buy Now</button>
+                </div>
+
+                <div class="products-features">
+                    <h3>Product Features</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Premium Quality Material</li>
+                        <li><i class="fas fa-check"></i> Easy Care Instructions</li>
+                        <li><i class="fas fa-check"></i> Perfect Fit Guarantee</li>
+                        <li><i class="fas fa-check"></i> 30-Day Return Policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("id");
+            const sizeOptions = document.querySelectorAll(".size-option");
+            const addToCartButton = document.querySelector(".add-to-cart");
+            const quantityInput = document.querySelector(".quantity-input");
+            let selectedSize = null;
+
+            if (!productId) {
+                console.error("No product ID found in URL");
+                return;
+            }
+
+            // Fetch product details from database
+            fetch(`fetch_product_details.php?id=${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    if (product.error) {
+                        console.error(product.error);
+                        return;
+                    }
+
+                    // Update product details dynamically
+                    document.getElementById("productName").textContent = product.name;
+                    document.getElementById("productPrice").textContent = `₹${parseFloat(product.price).toLocaleString()}`;
+                    document.getElementById("productImage").src = product.image_url;
+                    document.getElementById("productDescription").textContent = product.description;
+
+                    // Handle size selection
+                    sizeOptions.forEach(option => {
+                        option.addEventListener("click", function () {
+                            sizeOptions.forEach(opt => opt.classList.remove("active"));
+                            this.classList.add("active");
+                            selectedSize = this.textContent;
+                        });
+                    });
+
+                    // Add to Cart functionality
+                    addToCartButton.addEventListener("click", function () {
+                        if (!selectedSize) {
+                            alert("Please select a size before adding to the cart.");
+                            return;
+                        }
+
+                        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                        const quantity = parseInt(quantityInput.value) || 1;
+
+                        // Check if item already exists in cart
+                        let existingItem = cartItems.find(item => item.id === product.id && item.size === selectedSize);
+                        if (existingItem) {
+                            existingItem.quantity += quantity;
+                        } else {
+                            cartItems.push({
+                                id: product.id,
+                                name: product.name,
+                                price: parseFloat(product.price),
+                                image: product.image_url,
+                                size: selectedSize,
+                                quantity: quantity
+                            });
+                        }
+
+                        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                        updateCartCount();
+                        alert("Item added to cart!");
+                    });
+
+                    // Function to update cart count
+                    function updateCartCount() {
+                        let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+                        const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+                        const cartCountElement = document.querySelector(".cart-count");
+                        if (cartCountElement) {
+                            cartCountElement.textContent = totalItems;
+                        }
+                    }
+
+                    updateCartCount(); // Update count on page load
+                })
+                .catch(error => console.error("Error fetching product details:", error));
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a nav link is clicked
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNavMenu = navMenu.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+
+            if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

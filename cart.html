@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="mycss.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="wish.js"></script>
+    <style>
+        .cart-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .cart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cart-count {
+            background: #000;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            margin-top: 100px;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .item-name {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .item-size {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .item-original-price {
+            color: #666;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .quantity-value {
+            width: 40px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            color: #666;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .total-row {
+            font-weight: 600;
+            color: #000;
+            font-size: 1.1rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .empty-cart i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .cart-item img {
+                margin: 0 auto;
+            }
+
+            .quantity-controls {
+                justify-content: center;
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <!-- <span class="icon-badge cart-count">0</span> -->
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1 class="cart-title"><span class="cart-count">1 ITEM</span></h1>
+        </div>
+
+        <div id="cartItems" class="cart-items">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
+
+        <div id="cartSummary" class="cart-summary">
+            <!-- Cart summary will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateCartUI() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartContainer = document.getElementById('cartItems');
+            const summaryContainer = document.getElementById('cartSummary');
+            const cartCount = document.querySelector('.cart-count');
+
+            cartCount.textContent = `${cartItems.length} ITEM${cartItems.length !== 1 ? 'S' : ''}`;
+
+            if (cartItems.length === 0) {
+                cartContainer.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added any items yet.</p>
+                <a href="index.html" class="continue-shopping">Continue Shopping</a>
+            </div>
+        `;
+                summaryContainer.style.display = 'none';
+                return;
+            }
+
+            cartContainer.innerHTML = cartItems.map(item => `
+        <div class="cart-item" data-id="${item.id}">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="item-details">
+                <span class="item-name">${item.name}</span>
+                <div class="item-price">
+                    ₹${item.price.toLocaleString()}
+                </div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+                    <span class="quantity-value">${item.quantity}</span>
+                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    <button class="remove-btn" onclick="removeItem(${item.id})">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 0 ? 99 : 0;
+            const total = subtotal + shipping;
+
+            summaryContainer.innerHTML = `
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span>₹${subtotal.toLocaleString()}</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span>₹${shipping.toLocaleString()}</span>
+        </div>
+        <div class="summary-row total-row">
+            <span>Total</span>
+            <span>₹${total.toLocaleString()}</span>
+        </div>
+        <button class="checkout-btn" onclick="placeOrder()">PLACE ORDER</button>
+    `;
+            summaryContainer.style.display = 'block';
+        }
+
+        function updateQuantity(itemId, change) {
+            let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            let item = cartItems.find(item => item.id === itemId);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + change);
+                localStorage.setItem("cartItems", JSON.stringify(cartItems));
+                updateCartUI();
+            }
+        }
+
+        function removeItem(itemId) {
+            let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            cartItems = cartItems.filter(item => item.id !== itemId);
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+            updateCartUI();
+        }
+
+        function placeOrder() {
+            // Empty the cart
+            localStorage.removeItem("cartItems");
+
+            // Redirect to checkout page
+            window.location.href = 'payment.html';
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            updateCartUI();
+        });
+
+        // Mobile menu toggle and other existing scripts remain the same
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a nav link is clicked
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNavMenu = navMenu.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+
+            if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

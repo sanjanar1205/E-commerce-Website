@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Topwear</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="mycss.css">
+    <script src="wish.js"></script>
+    <style>
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #e94560;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #ee6279;
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart-btn i {
+            font-size: 16px;
+        }
+
+        .category-title-container {
+            background: linear-gradient(135deg, #f6f8f9 0%, #e94560 100%);
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-title {
+            font-family: 'Arial', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.2;
+            max-width: 900px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-title-container::before,
+        .category-title-container::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .category-title-container::before {
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            transform: rotate(-45deg);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+        }
+
+        .category-title-container::after {
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            transform: rotate(45deg);
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+        }
+
+        .filter-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .filter-select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+
+        .clear-filters {
+            background-color: #e94560;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-filters:hover {
+            background-color: #eb8093;
+        }
+
+        @media (max-width: 768px) {
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <div class="category-title-container">
+            <h2 class="category-title">TopWear - Shop the Latest TopWear Trends</h2>
+        </div>
+        <!-- New Filter Section -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="priceFilter">Price:</label>
+                        <select id="priceFilter" class="filter-select">
+                            <option value="">All Prices</option>
+                            <option value="0-500">₹0 - ₹500</option>
+                            <option value="500-1000">₹500 - ₹1000</option>
+                            <option value="1000-2000">₹1000 - ₹2000</option>
+                            <option value="2000+">₹2000+</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sortFilter">Sort By:</label>
+                        <select id="sortFilter" class="filter-select">
+                            <option value="">Default</option>
+                            <option value="low-to-high">Price: Low to High</option>
+                            <option value="high-to-low">Price: High to Low</option>
+                        </select>
+                    </div>
+
+                    <button id="clearFilters" class="clear-filters">Clear Filters</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <div class="container">
+                <div id="productsContainer">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const productsContainer = document.getElementById('productsContainer');
+        const priceFilter = document.getElementById('priceFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+        let products = [];
+        let filteredProducts = [];
+
+        function createProductCard(product) {
+            return `
+            <div class="product-card" data-product-id="${product.id}">
+                <div class="product-image-container">
+                    <img src="${product.image_url || 'fallback.jpg'}" class="product-image" onerror="this.onerror=null; this.src='fallback.jpg';">
+                    <button class="wishlist-button" onclick="handleWishlistClick(event, ${product.id})">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="product-details">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price-container">
+                        <p class="product-price">₹${product.price.toLocaleString()} 
+                            ${product.sale ? '<span class="sale-tag">Sale</span>' : ''}
+                        </p>
+                    </div>
+                    <button class="add-to-cart-btn" data-product-id="${product.id}" onclick="handleAddToCart(${product.id})">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        `;
+        }
+
+        function applyFilters() {
+            const priceRange = priceFilter.value;
+            const sortOption = sortFilter.value;
+
+            // First, filter by price
+            filteredProducts = products.filter(product => {
+                if (priceRange) {
+                    const [min, max] = priceRange.split('-').map(Number);
+                    if (max && (product.price < min || product.price > max)) return false;
+                    if (!max && product.price < min) return false;
+                }
+                return true;
+            });
+
+            // Then, sort if needed
+            if (sortOption === 'low-to-high') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sortOption === 'high-to-low') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            }
+
+            renderProducts(filteredProducts);
+        }
+
+        function renderProducts(productsToRender = products) {
+            const html = productsToRender.map(createProductCard).join('');
+            productsContainer.innerHTML = html;
+            addProductClickHandlers();
+        }
+
+        function addProductClickHandlers() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function (e) {
+                    if (!e.target.closest('.wishlist-button')) {
+                        const productId = this.dataset.productId;
+                        window.location.href = `product-details.html?id=${productId}`;
+                    }
+                });
+            });
+        }
+
+        function clearFilters() {
+            priceFilter.value = '';
+            sortFilter.value = '';
+            renderProducts();
+        }
+
+        function handleAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cartManager.addToCart(product);
+                updateCartButton(productId);
+            }
+        }
+
+        function updateCartButton(productId) {
+            const button = document.querySelector(`.add-to-cart-btn[data-product-id="${productId}"]`);
+            if (button) {
+                // You can add additional visual feedback here
+                button.classList.add('added');
+                setTimeout(() => {
+                    button.classList.remove('added');
+                }, 1000);
+            }
+        }
+
+        function handleWishlistClick(event, productId) {
+            event.stopPropagation();
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                if (wishlistManager.isInWishlist(productId)) {
+                    wishlistManager.removeFromWishlist(productId);
+                } else {
+                    wishlistManager.addToWishlist(product);
+                }
+                updateWishlistButton(productId);
+            }
+        }
+
+        function updateWishlistButton(productId) {
+            const button = document.querySelector(`.product-card[data-product-id="${productId}"] .wishlist-button i`);
+            if (button) {
+                if (wishlistManager.isInWishlist(productId)) {
+                    button.classList.remove('far');
+                    button.classList.add('fas');
+                    button.style.color = 'red';
+                } else {
+                    button.classList.remove('fas');
+                    button.classList.add('far');
+                    button.style.color = '';
+                }
+            }
+        }
+
+        // Existing event handlers and wishlist functions remain the same
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch("fetch_products.php?category=TopWear")
+                .then(response => response.json())
+                .then(fetchedProducts => {
+                    products = fetchedProducts;
+                    renderProducts();
+                    wishlistManager.updateHeaderCount();
+                    wishlistManager.updateWishlistUI();
+
+                    // Add filter event listeners
+                    priceFilter.addEventListener('change', applyFilters);
+                    sortFilter.addEventListener('change', applyFilters);
+                    clearFiltersBtn.addEventListener('click', clearFilters);
+                })
+                .catch(error => console.error("Error fetching products:", error));
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a nav link is clicked
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNavMenu = navMenu.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+
+            if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+        // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>

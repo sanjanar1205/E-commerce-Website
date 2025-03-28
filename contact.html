@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Contact</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MyShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="mycss.css">
+    <script src="wish.js"></script>
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.2);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: #e94560;
+            margin-bottom: 20px;
+        }
+
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-form-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .contact-form-wrapper h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .contact-form-wrapper h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: #e94560;
+        }
+
+        .map-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1024px) {
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                height: 400px;
+            }
+        }
+
+        /* Existing form styles with minor tweaks */
+        .contact-form {
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+        }
+
+        .submit-button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .success-message {
+            margin-top: 15px;
+        }
+
+
+        .form-grid .form-group:nth-child(3),
+        .form-grid .form-group:nth-child(4) {
+            grid-column: span 2;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+            width: 600px;
+        }
+
+        .submit-button {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+
+        .submit-button:hover {
+            background: #ee6b81;
+        }
+
+        .faq-section {
+            background-color: #f9f9f9;
+            padding: 50px 0;
+            border-radius: 10px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .faq-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #e94560;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f7f7f7;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f0f0f0;
+        }
+
+        .faq-question span {
+            font-weight: 600;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question i {
+            color: #e94560;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 20px;
+            background: white;
+        }
+
+        .faq-question.active+.faq-answer {
+            max-height: 500px;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .faq-answer p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .faq-container {
+                padding: 0 10px;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="page-header">
+            <h1 class="page-title">Contact Us</h1>
+            <p>We'd love to hear from you! Our team is always ready to assist.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>Call Us</h3>
+                <p>1800-123-4567</p>
+                <p>Mon-Sat: 9:00 AM - 6:00 PM</p>
+                <a href="tel:18001234567" class="submit-button"
+                    style="margin-top: 15px; font-size: 0.9rem; padding: 8px 16px;">Call Now</a>
+            </div>
+
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>support@myshop.com</p>
+                <p>Response within 24 hours</p>
+                <!-- <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div> -->
+            </div>
+
+            <div class="contact-card">
+                <i class="fas fa-comments"></i>
+                <h3>Live Chat</h3>
+                <p>Available 24/7</p>
+                <p>Average response time: 5 mins</p>
+                <a href="#chat" class="submit-button"
+                    style="margin-top: 15px; font-size: 0.9rem; padding: 8px 16px;">Start Chat</a>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-form-wrapper">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name*</label>
+                            <input type="text" id="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject*</label>
+                            <input type="text" id="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inquiry">Inquiry Type</label>
+                            <select id="inquiry">
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Order Status</option>
+                                <option value="returns">Returns & Refunds</option>
+                                <option value="product">Product Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label for="message">Message*</label>
+                            <textarea id="message" required
+                                placeholder="Please include any relevant details about your inquiry..."></textarea>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                        <input type="checkbox" id="newsletter" style="width: auto; margin-right: 10px;">
+                        <label for="newsletter" style="display: inline;">Subscribe to our newsletter for updates and
+                            exclusive offers</label>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </div>
+
+                    <div id="successMessage" class="success-message">
+                        <i class="fas fa-check-circle" style="margin-right: 10px;"></i>Thank you for your message! We'll
+                        get back to you soon.
+                    </div>
+                </form>
+            </div>
+
+            <div class="map-wrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12345.67890!2d-73.9878584!3d40.7484445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ0JzU0LjQiTiA3M8KwNTknMTYuMyJX!5e0!3m2!1sen!2sus!4v1584548868008!5m2!1sen!2sus"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="faq-section" id="FAQs">
+            <div class="faq-container">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What are your shipping times?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 business day
+                            delivery. International shipping may take 7-14 business days depending on the destination.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I return an item?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Returns are accepted within 30 days of purchase. Simply log into your account, go to order
+                            history, and initiate a return. Once approved, you'll receive a return shipping label via
+                            email.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer international shipping?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we ship to over 50 countries worldwide. International shipping rates vary based on
+                            destination and package weight. All customs fees and import duties are the responsibility of
+                            the customer.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What payment methods do you accept?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, and
+                            Google Pay. All transactions are secure and encrypted.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>About MyShop</h3>
+                        <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="topwear.html">TopWear</a></li>
+                            <li><a href="bottomwear.html">BottomWear</a></li>
+                            <li><a href="dresses.html">Dresses</a></li>
+                            <li><a href="acc.html">Accessories</a></li>
+                            <li><a href="size-guide.html">Size Guide</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Help & Info</h3>
+                        <ul class="footer-links">
+                            <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                            <li><a href="policy.html#privacy">Delivery Information</a></li>
+                            <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html#FAQs">FAQs</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Us</h3>
+                        <ul class="footer-links">
+                            <li>Email: info@MyShop.com</li>
+                            <li>Phone: +1 (555) 123-4567</li>
+                            <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Form submission handling
+            document.getElementById('contactForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                if (name && email && message) {
+                    document.getElementById('successMessage').style.display = 'block';
+
+                    this.reset();
+
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 5000);
+                }
+            });
+
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    // Close all other FAQs
+                    faqQuestions.forEach(item => {
+                        if (item !== question) {
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current FAQ
+                    question.classList.toggle('active');
+                });
+            });
+            // Mobile menu toggle
+            const menuBtn = document.querySelector('.menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+
+            menuBtn.addEventListener('click', () => {
+                menuBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when a nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (event) => {
+                const isClickInsideNavMenu = navMenu.contains(event.target);
+                const isClickOnMenuBtn = menuBtn.contains(event.target);
+
+                if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                    menuBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+        </script>
+</body>
+
+</html>

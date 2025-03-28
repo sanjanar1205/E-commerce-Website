@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MyShop - Collection</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop - Fashion & Lifestyle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="mycss.css">
+    <script src="wish.js"></script>
+    <style>
+        .category-title-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            background: linear-gradient(90deg, #f8f3f3, #e94560, #f8f3f3);
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+            color: #fff;
+            font-size: 40px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(-100%, 0);
+            }
+        }
+
+        .category-products {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .product-row {
+            display: flex;
+            flex-shrink: 0;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(233, 69, 96, 0.8);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(233, 69, 96, 1);
+        }
+
+        .carousel-arrow.left {
+            left: 10px;
+        }
+
+        .carousel-arrow.right {
+            right: 10px;
+        }
+
+        .wishlist-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .quick-view-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(233, 69, 96, 0.8);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .product-card:hover .quick-view-button {
+            opacity: 1;
+        }
+
+        .quick-view-button:hover {
+            background: rgba(233, 69, 96, 1);
+        }
+
+        /* Quick View Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            /* width: 50%; */
+            /* height: 100%; */
+            overflow: auto;
+            /* background-color: rgba(0,0,0,0.4); */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #e94560;
+            text-decoration: none;
+        }
+
+        .quick-view-product {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .quick-view-image {
+            width: 50%;
+            object-fit: cover;
+        }
+
+        .quick-view-details {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .quick-view-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .quick-view-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e94560;
+            margin-bottom: 15px;
+        }
+
+        .quick-view-description {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .quick-view-product {
+                flex-direction: column;
+            }
+
+            .quick-view-image,
+            .quick-view-details {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">My<span>Shop</span></a>
+                <div class="menu-btn">☰</div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="website.html" class="nav-link">Collection</a></li>
+                    <li class="nav-item"><a href="topwear.html" class="nav-link">TopWear</a></li>
+                    <li class="nav-item"><a href="bottomwear.html" class="nav-link">BottomWear</a></li>
+                    <li class="nav-item"><a href="dresses.html" class="nav-link">Dresses</a></li>
+                    <li class="nav-item"><a href="acc.html" class="nav-link">Accessories</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <div class="nav-icons">
+                        <a href="#" class="nav-icon-link search-icon">
+                            <i class="fas fa-search"></i></a>
+                        <a href="wishlist.html" class="nav-icon-link wishlist-link">
+                            <i class="far fa-heart"></i>
+                            <span class="icon-badge wishlist-count">0</span>
+                        </a>
+                        <a href="cart.html" class="nav-icon-link cart-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="icon-badge cart-count">0</span>
+                        </a>
+                        <a href="login.html" class="nav-icon-link">
+                            <i class="far fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Popup Search -->
+    <div class="search-popup" id="searchPopup">
+        <div class="search-popup-content">
+            <span class="search-popup-close">&times;</span>
+            <form id="popupSearchForm" action="search-results.html" method="GET">
+                <input type="text" class="search-popup-input" name="query" placeholder="Search products..."
+                    id="popupSearchInput">
+                <button type="submit" class="search-popup-submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero-section">
+            <img src="https://img101.urbanic.com/v1/e3d687c7051f4b86b5e4b6fb9a2f4e1b.webp" alt="Fashion Banner"
+                class="hero-image">
+            <div class="hero-content">
+                <div>
+                    <h1>Summer Collection 2025</h1>
+                    <p>Discover the latest trends in fashion and express your unique style</p>
+                    <a href="#" class="hero-button">Shop Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <div class="container">
+                <div id="productsContainer">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About MyShop</h3>
+                    <p>Your one-stop destination for fashion, lifestyle, and trendy collections.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="topwear.html">TopWear</a></li>
+                        <li><a href="bottomwear.html">BottomWear</a></li>
+                        <li><a href="dresses.html">Dresses</a></li>
+                        <li><a href="acc.html">Accessories</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="policy.html#shipping">Privacy Policy</a></li>
+                        <li><a href="policy.html#privacy">Delivery Information</a></li>
+                        <li><a href="policy.html#returns">Returns & Refunds</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html#FAQs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@MyShop.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Fashion Street, Style City, SC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="quickViewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="quickViewContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const productsContainer = document.getElementById('productsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const modal = document.getElementById('quickViewModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        let products = [];
+        let currentCategory = 'All';
+        let searchQuery = '';
+
+        function filterProducts() {
+            return products.filter(product => {
+                const matchesCategory = currentCategory === 'All' || product.category === currentCategory;
+                const matchesSearch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (product.category && product.category.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        function createProductCard(product) {
+            return `
+            <div class="product-card" data-product-id="${product.id || ''}">
+                <div class="product-image-container">
+                    <img src="${product.image_url || 'fallback.jpg'}" class="product-image" onerror="this.onerror=null; this.src='fallback.jpg';">
+                    <button class="wishlist-button" onclick="handleWishlistClick(event, ${product.id || ''})">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="quick-view-button" onclick="openQuickView(event, ${product.id || ''})">Quick View</button>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name || 'Product Name'}</h3>
+                    <p class="product-price">₹${(product.price || 0).toLocaleString()} ${product.sale ? '<span class="sale-tag">Sale</span>' : ''}</p>
+                </div>
+            </div>
+        `;
+        }
+
+        function chunkArray(array, size) {
+            const chunked = [];
+            for (let i = 0; i < array.length; i += size) {
+                chunked.push(array.slice(i, i + size));
+            }
+            return chunked;
+        }
+
+
+        function renderProducts() {
+            if (!Array.isArray(products) || products.length === 0) {
+                productsContainer.innerHTML = '<p>No products available at the moment.</p>';
+                return;
+            }
+            const filteredProducts = filterProducts();
+            const categories = [
+                { name: 'TopWear', title: 'Trendy TopWear Collection' },
+                { name: 'BottomWear', title: 'Stylish BottomWear Selection' },
+                { name: 'Dresses', title: 'Elegant Dress Collection' },
+                { name: 'Accessories', title: 'Exclusive Fashion Accessories' }
+            ];
+
+            let html = '';
+            categories.forEach(category => {
+                const categoryProducts = filteredProducts.filter(product =>
+                    category.name === 'Accessories' ? !['TopWear', 'BottomWear', 'Dresses'].includes(product.category) : product.category === category.name
+                );
+                if (categoryProducts.length > 0) {
+                    html += `
+                    <div id="${category.name}" class="category-section">
+                        <div class="category-title-container">
+                            <h2 class="category-title">${category.title}</h2>
+                        </div>
+                        <div class="category-products">
+                            <a href="#" class="carousel-arrow left" data-category="${category.name}">&lt;</a>
+                            <a href="#" class="carousel-arrow right" data-category="${category.name}">&gt;</a>
+                            <div class="carousel-container" id="carousel-${category.name}">
+                                ${chunkArray(categoryProducts, 3).map(chunk => `
+                                    <div class="product-row">
+                                        ${chunk.map(createProductCard).join('')}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                }
+            });
+
+            productsContainer.innerHTML = html;
+            addProductClickHandlers();
+            addCarouselFunctionality();
+        }
+
+        function addCarouselFunctionality() {
+            document.querySelectorAll('.carousel-arrow').forEach(arrow => {
+                arrow.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = arrow.dataset.category;
+                    const carousel = document.getElementById(`carousel-${category}`);
+                    const productRows = carousel.querySelectorAll('.product-row');
+                    const totalWidth = productRows.length * 100;
+                    let currentPosition = parseInt(carousel.style.transform.replace('translateX(', '').replace('%)', '') || 0);
+
+                    if (arrow.classList.contains('left')) {
+                        currentPosition = Math.min(currentPosition + 100, 0);
+                    } else {
+                        currentPosition = Math.max(currentPosition - 100, -totalWidth + 100);
+                    }
+
+                    carousel.style.transform = `translateX(${currentPosition}%)`;
+                });
+            });
+        }
+
+        function addProductClickHandlers() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function (e) {
+                    if (!e.target.closest('.wishlist-button')) {
+                        const productId = this.dataset.productId;
+                        window.location.href = `product-details.html?id=${productId}`;
+                    }
+                });
+            });
+        }
+
+        function handleWishlistClick(event, productId) {
+            event.stopPropagation();
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                if (wishlistManager.isInWishlist(productId)) {
+                    wishlistManager.removeFromWishlist(productId);
+                } else {
+                    wishlistManager.addToWishlist(product);
+                }
+                updateWishlistButton(productId);
+            }
+        }
+
+        function updateWishlistButton(productId) {
+            const button = document.querySelector(`.product-card[data-product-id="${productId}"] .wishlist-button i`);
+            if (button) {
+                if (wishlistManager.isInWishlist(productId)) {
+                    button.classList.remove('far');
+                    button.classList.add('fas');
+                    button.style.color = 'red';
+                } else {
+                    button.classList.remove('fas');
+                    button.classList.add('far');
+                    button.style.color = '';
+                }
+            }
+        }
+
+        function openQuickView(event, productId) {
+            event.stopPropagation();
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                const quickViewContent = `
+                    <div class="quick-view-product">
+                        <img src="${product.image_url || 'fallback.jpg'}" alt="${product.name}" class="quick-view-image">
+                        <div class="quick-view-details">
+                            <h2>${product.name}</h2>
+                            <p class="quick-view-price">₹${product.price.toLocaleString()} ${product.sale ? '<span class="sale-tag">Sale</span>' : ''}</p>
+                            <p>${product.description || 'No description available.'}</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('quickViewContent').innerHTML = quickViewContent;
+                modal.style.display = "block";
+            }
+        }
+
+
+        // Close the modal when the close button is clicked
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // searchInput.addEventListener('input', (e) => {
+        //     searchQuery = e.target.value;
+        //     renderProducts();
+        // });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch("fetch_products.php")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(fetchedProducts => {
+                    console.log("Fetched products:", fetchedProducts); // Add this line
+                    products = fetchedProducts;
+                    renderProducts();
+                    if (typeof wishlistManager !== 'undefined') {
+                        wishlistManager.updateHeaderCount();
+                        wishlistManager.updateWishlistUI();
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching products:", error);
+                    productsContainer.innerHTML = '<p>Error loading products. Please try again later.</p>';
+                });
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a nav link is clicked
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNavMenu = navMenu.contains(event.target);
+            const isClickOnMenuBtn = menuBtn.contains(event.target);
+
+            if (!isClickInsideNavMenu && !isClickOnMenuBtn) {
+                menuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Search Popup Functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchPopup = document.getElementById('searchPopup');
+        const searchPopupClose = document.querySelector('.search-popup-close');
+
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchPopup.classList.add('active');
+        });
+
+        searchPopupClose.addEventListener('click', () => {
+            searchPopup.classList.remove('active');
+        });
+
+        // Close popup when clicking outside the search content
+        searchPopup.addEventListener('click', (e) => {
+            if (e.target === searchPopup) {
+                searchPopup.classList.remove('active');
+            }
+        });
+
+        // Prevent form submission from closing the popup if the input is empty
+        const popupSearchForm = document.getElementById('popupSearchForm');
+        popupSearchForm.addEventListener('submit', (e) => {
+            const popupSearchInput = document.getElementById('popupSearchInput');
+            if (popupSearchInput.value.trim() === '') {
+                e.preventDefault();
+            }
+        });
+
+    </script>
+
+</html>
